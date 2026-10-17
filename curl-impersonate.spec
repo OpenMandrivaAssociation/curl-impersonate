@@ -153,7 +153,8 @@ cp -a build/deps/src/zlib/LICENSE packaged-licenses/LICENSE-zlib
 cp -a build/deps/src/zstd/LICENSE packaged-licenses/LICENSE-zstd
 
 %install
-set -euo pipefail
+# rpm's install wrapper tests $DONT_CLEANUP. nounset aborts on that.
+set -eo pipefail
 inst=%{buildroot}%{_libdir}/curl-impersonate
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libdir} "$inst/include"
 install -m 755 build/deps/build/curl/src/curl-impersonate %{buildroot}%{_bindir}/curl-impersonate
